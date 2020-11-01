@@ -142,7 +142,7 @@
 		}
 
 		.cr-viewport.cr-vp-circle:before {
-			content: "Mover ✥";
+			content: "mover ✥";
 			z-index: 20000;
 			flex: 1;
 			position: absolute;
@@ -150,14 +150,15 @@
 			top: 10%;
 			text-align: center;
 			width: 100%;
-			font-weight: bold;
 			font-size: 2em;
-			color: rgba(255, 255, 255, 0.7);
+			color: rgba(255, 255, 255, 0.5);
 			transition: all 100ms ease-in-out;
 		}
 
-		.cr-boundary:hover .cr-viewport.cr-vp-circle:before {
-			color: rgba(255, 255, 255, 0.3);
+		.cr-boundary:hover .cr-viewport.cr-vp-circle:before,
+		.cr-boundary:active .cr-viewport.cr-vp-circle:before,
+		.cr-boundary:focus .cr-viewport.cr-vp-circle:before {
+			color: rgba(255, 255, 255, 0.2);
 		}
 
 
@@ -185,7 +186,12 @@
 			}
 
 			#btnRotate-dir {
-				margin-top: 15px;
+				mmargin-top: 15px;
+				margin-right: 0;
+			}
+
+			#rodapeCnpj {
+				font-size: 60%;
 			}
 
 		}
@@ -225,7 +231,7 @@
 		}
 
 		.btn {
-			padding: 20px 10px;
+			padding: 10px 7px;
 			width: 200px;
 			background-color: #12A254;
 			font-weight: bold;
@@ -308,6 +314,11 @@
 			margin: 25px auto;
 			padding: 20px;
 			border-radius: 10px;
+			display: flex;
+		}
+
+		.croppie-container .cr-slider {
+			width: 90%;
 		}
 
 		.containerImagemFinal {
@@ -513,7 +524,6 @@
 				$('#btnRotate-dir').on('click', function () {
 					$uploadCrop.croppie('rotate', -90);
 				});
-
 
 			}
 
