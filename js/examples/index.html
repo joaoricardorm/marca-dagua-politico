@@ -297,10 +297,8 @@
 
 			<div id="pag1" class="pagina visible">
 				<div class="conteudo">
-					<div for="imagemUpload" class="btn btn-branco btn-medio" style="width:90%; margin-top:-15px">
-						Adicione
-						nosso
-						tema</div>
+					<div id="btnAdicioneNossoTema" class="btn btn-branco btn-medio" style="width:90%; margin-top:-15px">
+						Adicione nosso tema</div>
 					<div class="flex">
 						<div id="dummyPreviewUpload">
 
@@ -427,7 +425,7 @@
 					enableExif: true
 				});*/
 
-				$('#dummyPreviewUpload').on('click', function () {
+				$('#dummyPreviewUpload, #btnAdicioneNossoTema').on('click', function () {
 					$('#imagemUpload').trigger('click');
 				});
 
