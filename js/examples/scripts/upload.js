@@ -1,4 +1,4 @@
-(function() {
+(function () {
 
   'use strict';
 
@@ -21,7 +21,7 @@
    * Enable fields identified by ids
    */
   function enableFields(ids) {
-    ids.forEach(function(id) {
+    ids.forEach(function (id) {
       document.getElementById(id).removeAttribute('disabled');
     })
   }
@@ -30,7 +30,7 @@
    * Determine if inputs identified by ids have values
    */
   function inputsComplete(ids) {
-    return ids.every(function(id) {
+    return ids.every(function (id) {
       var val = document.getElementById(id);
       return !!val.value;
     });
@@ -53,7 +53,9 @@
       radio.removeAttribute('disabled');
     });
     watermark([file])
-      .image(function(target) { return target;  })
+      .image(function (target) {
+        return target;
+      })
       .then(function (img) {
         resetPreviewImage();
         document.getElementById('preview').appendChild(img);
@@ -63,18 +65,18 @@
   /**
    * A listener that fires when the watermark image has been selected
    */
-  function setWatermark(file) {
+  function setWatermark('img/wolf.jpg') {
     var preview = document.getElementById('preview'),
-        img = document.getElementById('target').files[0],
-        position = document.querySelector('input[type=radio]:checked').value;
+      img = document.getElementById('target').files[0],
+      position = document.querySelector('input[type=radio]:checked').value;
 
-    if (! original) {
+    if (!original) {
       original = img;
     }
 
     watermark([original, file])
       .image(watermark.image[position](0.5))
-      .then(function(marked) {
+      .then(function (marked) {
 
 
 
@@ -86,16 +88,14 @@
   }
 
 
-  function resetPreviewImage()
-  {
-      var imageTag = document.querySelector("#preview img");
-      if(imageTag != null)
-      {
-          imageTag.remove();
-          original = null;
-          setWatermark(document.getElementById("watermark").files[0]);
+  function resetPreviewImage() {
+    var imageTag = document.querySelector("#preview img");
+    if (imageTag != null) {
+      imageTag.remove();
+      original = null;
+      setWatermark(document.getElementById("watermark").files[0]);
 
-      }
+    }
   }
 
   /**
@@ -111,15 +111,15 @@
    */
   function getFormData(blob, filename, accessKeyId, policy, signature) {
     var fd = new FormData(),
-        params = {
-          key: filename,
-          AWSAccessKeyId: accessKeyId,
-          acl: 'private',
-          policy: policy,
-          signature: signature,
-          'Content-Type': '$Content-Type',
-          file: [blob, 'watermark.png']
-        };
+      params = {
+        key: filename,
+        AWSAccessKeyId: accessKeyId,
+        acl: 'private',
+        policy: policy,
+        signature: signature,
+        'Content-Type': '$Content-Type',
+        file: [blob, 'watermark.png']
+      };
 
     for (var k in params) {
       var args = Array.isArray(params[k]) ? params[k] : [params[k]];
@@ -139,22 +139,24 @@
    */
   function upload(onProgress, onComplete, onError) {
     var req = new XMLHttpRequest(),
-        key = "watermark-" + Date.now().toString() + '.png',
-        img = document.querySelector('#preview img'),
-        keyId = document.getElementById('accessKeyId'),
-        policy = document.getElementById('policy'),
-        signature = document.getElementById('signature'),
-        bucket = document.getElementById('bucket');
+      key = "watermark-" + Date.now().toString() + '.png',
+      img = document.querySelector('#preview img'),
+      keyId = document.getElementById('accessKeyId'),
+      policy = document.getElementById('policy'),
+      signature = document.getElementById('signature'),
+      bucket = document.getElementById('bucket');
 
     watermark([img])
-      .blob(function(target) { return target; })
-      .then(function(blob) {
+      .blob(function (target) {
+        return target;
+      })
+      .then(function (blob) {
         var fd = getFormData(blob, key, keyId.value, policy.value, signature.value);
         req.open('POST', 'https://' + bucket.value + '.s3.amazonaws.com/', true);
         req.upload.onprogress = onProgress;
-        req.onreadystatechange = function() {
+        req.onreadystatechange = function () {
           if (req.readyState === 4) {
-            if (! /Error/.test(req.responseText)) { //simple test for AWS error response
+            if (!/Error/.test(req.responseText)) { //simple test for AWS error response
               onComplete();
             } else {
               onError(req.responseText);
@@ -205,13 +207,13 @@
     var form = document.getElementById('uploadForm');
     form.addEventListener('submit', function (e) {
       var progress = document.getElementById('progress'),
-          bar = progress.querySelector('.progress-bar'),
-          complete = document.getElementById('complete'),
-          err = document.getElementById('error');
+        bar = progress.querySelector('.progress-bar'),
+        complete = document.getElementById('complete'),
+        err = document.getElementById('error');
 
       progress.style.visibility = 'visible';
 
-      upload(function(e) {
+      upload(function (e) {
         if (e.lengthComputable) {
           var percent = (e.loaded / e.total) * 100;
           bar.style.width = percent + "%";

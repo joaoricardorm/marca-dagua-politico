@@ -1,0 +1,575 @@
+<html>
+
+<head>
+	<title>Uender Nogueira e Silmar Pereira // Adicione Nosso Tema</title>
+
+	<meta property="og:locale" content="pt_BR">
+
+	<meta property="og:url" content="http://uendernogueira.000webhostapp.com">
+
+	<meta property="og:title" content="Adicione Nosso Tema">
+	<meta property="og:site_name" content="Uender Nogueira e Silmar Pereira">
+
+	<meta property="og:description"
+		content="Adicione um tema da campanha eleitoral para prefeito de Rolim de Moura / RO. Para Prefeito Uender Nogueira e Vice Silmar Pereira.">
+
+	<meta property="og:image" content="http://uendernogueira.000webhostapp.com/img/uender-e-silmar-cabecalho.png">
+	<meta property="og:image:type" content="image/png">
+	<meta property="og:image:width" content="800">
+	<meta property="og:image:height" content="800">
+
+	<meta property="og:type" content="website">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<script src="scripts/jquery-3.5.1.min.js"></script>
+
+
+
+	<link rel="stylesheet" href="scripts/croppie/croppie.css" />
+	<script src="scripts/croppie/croppie.min.js"></script>
+
+	<script src="scripts/watermark.js"></script>
+
+	<!--<link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;700;900&display=swap" rel="stylesheet">-->
+
+
+
+
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Itim&family=Titillium+Web:wght@400;700;900&display=swap');
+
+		* {
+			font-family: 'Titillium Web', sans-serif;
+		}
+
+		html,
+		body {
+			padding: 0;
+			margin: 0;
+		}
+
+		body {
+			background: url(img/pattern-19.png) #290046;
+		}
+
+		#bg-meio {
+			width: 200%;
+			height: 100%;
+			background: rgba(69, 0, 119, .7);
+			position: fixed;
+			top: -50%;
+			left: -50%;
+			z-index: -1;
+			border-bottom: 20px solid #32a836;
+			border-radius: 50%;
+		}
+
+		.container {
+			max-width: 960px;
+			margin: 0 auto;
+		}
+
+		#app {
+			width: 95%;
+			margin: 0 auto 5% auto;
+		}
+
+		#fotoCabecalho img {
+			width: 100%;
+		}
+
+		#upload-demo {}
+
+		input,
+		button {
+			font-size: 1em;
+		}
+
+		.redes-sociais {
+			text-align: center;
+		}
+
+		.footer {
+			display: flex;
+			justify-content: space-between;
+
+		}
+
+		.conteudo {
+			width: 100%;
+			background: url(img/like.png) left center repeat-x;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.btn.btn-medio {
+			font-size: 35px;
+			font-weight: 900;
+			padding: 5px;
+			width: 100%;
+		}
+
+		.btn-grande {
+			font-size: 40px;
+			width: 100%;
+		}
+
+		@media screen and (max-width: 640px) {
+			.conteudo {
+				background: transparent;
+			}
+
+			.btn.btn-medio {
+				font-size: 1.7em;
+			}
+
+			.btn-grande {
+				font-size: 1.7em;
+			}
+
+			.icone-upload-imagem {
+				width: 40px;
+				display: block;
+				margin: 0 auto;
+			}
+
+		}
+
+		@media screen and (max-width: 350px) {
+			.icone-upload-imagem {
+				display: none;
+			}
+		}
+
+		.btn-dir {
+			order: 1;
+		}
+
+		.block {
+			display: block;
+		}
+
+		.pagina {
+			display: none;
+			transition: all 1s ease-in-out;
+		}
+
+		.visible {
+			display: block;
+		}
+
+		#imagemUpload {
+			display: none;
+		}
+
+		.sombra,
+		#dummyPreviewUpload,
+		#bg-meio,
+		.containerImagemFinal img {
+			box-shadow: 1px 5px 5px rgba(0, 0, 0, 0.3);
+		}
+
+		.btn {
+			padding: 20px 10px;
+			width: 200px;
+			background-color: #12A254;
+			font-weight: bold;
+			color: #FFF;
+			text-transform: uppercase;
+			text-align: center;
+			display: block;
+			margin-top: 10px;
+			cursor: pointer;
+			border-radius: 10px;
+			border: none;
+			transition: all 100ms ease-in-out;
+		}
+
+		.btn:hover {
+			background-color: #ff6600;
+			color: white;
+		}
+
+		.btn-branco {
+			background: white;
+			color: #3c0069;
+		}
+
+		#btnEnviarArquivo {
+			width: 70%;
+			flex: 1;
+		}
+
+		#pag1 {}
+
+		#dummyPreviewUpload {
+			width: 400px;
+			background: url(img/tema-uender-e-silmar.png) bottom center #ff6600;
+			background-size: cover;
+			border-radius: 50%;
+			margin: 5% auto;
+			border: 15px white solid;
+			display: block;
+			color: white;
+			font-size: 50px;
+			cursor: pointer;
+		}
+
+		#dummyPreviewUpload:hover {
+			background-color: white;
+			border-color: #32a836;
+
+		}
+
+		#dummyPreviewUpload:hover:before {
+			background-image: url(img/avatar-hover.png);
+		}
+
+		#dummyPreviewUpload:before {
+			content: "";
+			z-index: -10;
+			background: url(img/avatar.png) no-repeat center 30px;
+			background-size: 30%;
+			display: block;
+			text-align: center;
+			padding-bottom: 100%
+		}
+
+		.like {
+			max-width: 100%;
+			height: auto;
+
+		}
+
+		.like-dir {}
+
+		.croppie-container .cr-boundary {
+			border-radius: 10px;
+		}
+
+		.croppie-container .cr-slider-wrap {
+			background: white;
+			margin: 10px auto;
+			padding: 20px;
+			border-radius: 10px;
+		}
+
+		.containerImagemFinal {
+			margin: auto;
+			padding: 30px;
+			width: auto;
+		}
+
+		.containerImagemFinal img {
+			display: block;
+			margin: auto;
+			max-width: 100%;
+			border-radius: 50%;
+			border: 15px white solid;
+		}
+
+		.upload-demo.ready {
+			display: block;
+		}
+
+		.cr-viewport {
+			background: url(img/tema-uender-e-silmar.png);
+			background-size: cover;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="bg-meio"></div>
+	<div class="container">
+		<div class="header">
+			<picture id="fotoCabecalho">
+				<source media="(max-width: 640px)" srcset="img/uender-e-silmar-cabecalho-640.png">
+				<source media="(min-width: 641px)" srcset="img/uender-e-silmar-cabecalho.png">
+				<img src="img/uender-e-silmar-cabecalho.png" alt="Uender e Silmar">
+			</picture>
+		</div>
+
+		<div id="app">
+
+			<div id="pag1" class="pagina visible">
+				<div class="conteudo">
+					<div for="imagemUpload" class="btn btn-branco btn-medio" style="width:90%; margin-top:-15px">
+						Adicione
+						nosso
+						tema</div>
+					<div class="flex">
+						<div id="dummyPreviewUpload">
+
+						</div>
+					</div>
+					<label id="btnEnviarArquivo" for="imagemUpload" class="btn btn-grande"><img
+							class="icone-upload-imagem" src="img/avatar-btn.png" align="absmiddle">&nbsp;
+						Enviar Foto</label>
+					<input type="file" accept="image/*" name="imagemUpload" id="imagemUpload">
+				</div>
+			</div>
+			<div id="pag2" class="pagina">
+
+
+
+				<div id="containerRecorte" class="conteudo">
+					<div id="upload-demo"></div>
+
+				</div>
+				<div class="footer">
+					<button class="alterarImg btn btn-branco">Alterar<br>Foto</button>
+					<button class="processarImg btn btn-dir btn-grande" style="width: 90%; margin-left: 5%;">Continuar
+						&rarr;</button>
+				</div>
+			</div>
+			<div id="pag3" class="pagina">
+				<div class="containerImagemFinal conteudo">
+					<div id="imagemFinal"></div>
+				</div>
+				<div class="footer">
+					<button class="recortarImg btn btn-branco">Recortar</button>
+
+					<button class="salvarImg block btn btn-grande" style="width: 90%; margin:0 5%;"><img
+							class="icone-upload-imagem" src="img/download-btn.png" align="absmiddle">&nbsp;Salvar
+						Imagem</button>
+
+					<button class="alterarImg btn btn-branco">Alterar<br>Foto</button>
+
+				</div>
+				<div class="footer block">
+					<div class="redes-sociais">
+						<h2 style="color:white;">Compartilhe nas redes sociais</h2>
+
+						<!-- Go to www.addthis.com/dashboard to customize your tools -->
+						<div class="addthis_inline_share_toolbox_n0ui"></div>
+					</div>
+
+
+					<!-- Go to www.addthis.com/dashboard to customize your tools -->
+					<script type="text/javascript"
+						src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4ed2b2ef59ef44f3">
+					</script>
+
+				</div>
+			</div>
+
+
+		</div>
+
+	</div>
+
+	<script>
+		$(document).ready(function () {
+
+			function tamanhoImg() {
+
+				screenWidth = $(window).width();
+				screenHeight = $(window).height();
+
+				tamanho = (screenWidth < screenHeight) ? screenWidth : screenHeight;
+				tamanho = tamanho - tamanho * 0.2;
+
+				if (tamanho > 400) {
+					tamanho = 400;
+				}
+
+				return tamanho;
+			}
+
+			tamanho = tamanhoImg();
+			$('#imagemFinal, #dummyPreviewUpload, .croppie-container').css('maxWidth',
+				tamanho - 50 + 'px');
+
+			$('.cr-slider-wrap').css('width', '100px!important');
+
+			function demoUpload($uploadCrop) {
+
+				function readFile(input) {
+					if (input.files && input.files[0]) {
+						var reader = new FileReader();
+
+						reader.onload = function (e) {
+							$('.upload-demo').addClass('ready');
+							$uploadCrop.croppie('bind', {
+								url: e.target.result
+							}).then(function () {
+								console.log('jQuery bind complete');
+							});
+
+						}
+
+						reader.readAsDataURL(input.files[0]);
+					} else {
+						swal("Sorry - you're browser doesn't support the FileReader API");
+					}
+
+					$uploadCrop.croppie('setZoom', 1);
+
+					$uploadCrop.croppie('bind');
+					$uploadCrop.show();
+
+					recortarImg();
+
+
+
+				}
+
+				/*$uploadCrop = $('#upload-demo').croppie({
+					viewport: {
+						width: 100,
+						height: 100,
+						type: 'circle'
+					},
+					enableExif: true
+				});*/
+
+				$('#dummyPreviewUpload').on('click', function () {
+					$('#imagemUpload').trigger('click');
+				});
+
+				$('#imagemUpload').on('change', function () {
+					readFile(this);
+				});
+			}
+
+
+			function atualizarResultado() {
+				$uploadCrop.croppie('result', {
+					type: 'canvas',
+					circle: false,
+					size: {
+						width: 1080,
+						height: 1080
+					},
+				}).then(function (resp) {
+
+					aplicaMarca(resp);
+					/*popupResult({
+						src: resp
+					});*/
+				});
+			}
+
+			tamanho = tamanhoImg();
+			opts = {
+				url: 'img/tema-uender-e-silmar.png',
+				viewport: {
+					width: tamanho - 50,
+					height: tamanho - 50,
+					type: 'circle'
+				},
+				enforceBoundaryboolean: true,
+				enableExif: true,
+				enableOrientation: true,
+				boundary: {
+					width: tamanho,
+					height: tamanho
+				},
+				customClassstring: 'teste',
+				zoom: 1
+			};
+
+			$uploadCrop = $('#upload-demo').croppie(opts).hide();
+
+
+			$('#imagemUpload').on('change', demoUpload($uploadCrop));
+
+			/*
+			ATUALIZA RESULTADO AO MEXER NA IMAGEM 
+			$uploadCrop.on('update.croppie', function (ev, cropData) {
+				console.log('mexe');
+				atualizarResultado();
+			});
+			*/
+			$('.processarImg').on('click', function (ev) {
+				atualizarResultado();
+
+				verResultado();
+			});
+
+
+			$('.recortarImg').on('click', function (ev) {
+				recortarImg();
+			});
+
+			$('.alterarImg').on('click', function (ev) {
+				alterarImg();
+			});
+
+			$('.salvarImg').on('click', function (ev) {
+				dataURI = $('#imagemFinal img').attr('src');
+
+				console.log(dataURI);
+
+				var download = document.createElement('a');
+				download.href = dataURI;
+				download.download = 'Foto de Perfil - Eu Apoio Uender e Silmar.png';
+				download.click();
+			});
+
+			var elImagemUpload = document.querySelector('#imagemUpload');
+
+			function aplicaMarca(imgCortada) {
+				var getX = function (coffee, logo) {
+					return 0;
+				};
+
+				var getY = function (coffee, logo) {
+					return 0;
+				};
+
+				watermark([imgCortada, 'img/tema-uender-e-silmar.png'])
+					.image(watermark.image.atPos(getX, getY, 1))
+					.then(function (img) {
+						$('#imagemFinal').text('').append(img);
+						//var pre = document.querySelector('#imagemFinal');
+						//pre.parentNode.insertBefore(img, pre);
+					});
+			}
+
+			function alterarImg() {
+				$('#imagemUpload').val('');
+				//Escolher Imagem
+				$('.pagina').removeClass('visible');
+				$('#pag1').addClass('visible');
+			}
+
+			function recortarImg() {
+				//Resultado
+				$('.pagina').removeClass('visible');
+				$('#pag2').addClass('visible');
+			}
+
+			function verResultado() {
+				//Resultado
+				$('.pagina').removeClass('visible');
+				$('#pag3').addClass('visible');
+			}
+		});
+	</script>
+
+
+
+	<script>
+		WebFontConfig = {
+			typekit: {
+				id: 'Titillium'
+			}
+		};
+
+		(function (d) {
+			var wf = d.createElement('script'),
+				s = d.scripts[0];
+			wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js';
+			wf.async = true;
+			s.parentNode.insertBefore(wf, s);
+		})(document);
+	</script>
+
+</body>
+
+</html>

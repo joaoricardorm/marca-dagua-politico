@@ -1,0 +1,211 @@
+<script src="scripts/jquery-3.5.1.min.js"></script>
+
+<!--owl-carousel-->
+<link rel="stylesheet" href="scripts/owl-carousel/assets/owl.carousel.min.css">
+<link rel="stylesheet" href="scripts/owl-carousel/assets/owl.theme.default.min.css">
+<script src="scripts/owl-carousel/owl.carousel.min.js"></script>
+
+
+<link rel="stylesheet" href="scripts/croppie/croppie.css" />
+<script src="scripts/croppie/croppie.min.js"></script>
+
+<script src="scripts/watermark.js"></script>
+
+<style>
+	html,
+	body {
+		padding: 0;
+		margin: 0;
+		background: gray;
+	}
+
+	#containerRecorte,
+	#upload-demo {
+		display: nones;
+		max-height: 640px;
+		max-width: 640px;
+		background: red;
+	}
+
+	.owl-carousel {
+		padding: 0;
+	}
+</style>
+
+<div id="app">
+
+
+	<ul class="owl-carousel">
+		<div class="owl-item">
+			<input type="file" accept="image/*" id="imagemUpload">
+			Enviar arquivo
+		</div>
+		<div class="owl-item">
+			<div id="containerRecorte">
+				<div id="upload-demo"></div>
+
+			</div>
+			<div>
+				<button id="processarImg" style="font-size: 30px;">Continuar</button>
+			</div>
+		</div>
+		<div class="owl-item">
+			<div class="containerImagemFinal">
+				<div id="imagemFinal">Resultado</div>
+			</div>
+		</div>
+	</ul>
+
+</div>
+
+
+<script>
+	$(document).ready(function () {
+
+
+		var owl = $(".owl-carousel");
+
+		owl.owlCarousel({
+			navigation: false, // Show next and prev buttons
+
+			slideSpeed: 300,
+			paginationSpeed: 400,
+
+			mouseDrag: false,
+			touchDrag: false,
+
+			items: 1,
+			itemsDesktop: false,
+			itemsDesktopSmall: false,
+			itemsTablet: false,
+			itemsMobile: false
+		});
+
+		function demoUpload($uploadCrop) {
+
+			function readFile(input) {
+				if (input.files && input.files[0]) {
+					var reader = new FileReader();
+
+					reader.onload = function (e) {
+						$('.upload-demo').addClass('ready');
+						$uploadCrop.croppie('bind', {
+							url: e.target.result
+						}).then(function () {
+							console.log('jQuery bind complete');
+						});
+
+					}
+
+					reader.readAsDataURL(input.files[0]);
+				} else {
+					swal("Sorry - you're browser doesn't support the FileReader API");
+				}
+
+				owl.trigger('to.owl.carousel', 1);
+				//$uploadCrop.show();
+				setTimeout(function () {
+					$uploadCrop.croppie('setZoom', 1);
+					$uploadCrop.croppie('bind');
+
+				}, 1000)
+
+
+			}
+
+			/*$uploadCrop = $('#upload-demo').croppie({
+				viewport: {
+					width: 100,
+					height: 100,
+					type: 'circle'
+				},
+				enableExif: true
+			});*/
+
+
+
+			$('#imagemUpload').on('change', function () {
+				readFile(this);
+			});
+		}
+
+
+		function atualizarResultado() {
+			$uploadCrop.croppie('result', {
+				type: 'canvas',
+				circle: false,
+				size: {
+					width: 1080,
+					height: 1080
+				},
+			}).then(function (resp) {
+
+				aplicaMarca(resp);
+
+				/*popupResult({
+					src: resp
+				});*/
+			});
+		}
+
+		opts = {
+			url: 'img/tema-uender-e-silmar.png',
+			viewport: {
+				width: 300,
+				height: 300,
+				type: 'circle'
+			},
+			enforceBoundaryboolean: false,
+			enableExif: true,
+			boundary: {
+				width: 550,
+				height: 550
+			},
+			zoom: 1
+		};
+
+		$uploadCrop = $('#upload-demo').croppie(opts);
+
+
+		$('#imagemUpload').on('change', demoUpload($uploadCrop));
+
+		$uploadCrop.on('update.croppie', function (ev, cropData) {
+			console.log('mexe');
+			atualizarResultado();
+		});
+		$('#processarImg').on('click', function (ev) {
+			atualizarResultado();
+			setTimeout(function () {
+				if ($('#imagemUpload').val() != '')
+					owl.trigger('to.owl.carousel', 2);
+			}, 1000);
+		});
+
+
+		var elImagemUpload = document.querySelector('#imagemUpload');
+
+		function aplicaMarca(imgCortada) {
+			var getX = function (coffee, logo) {
+				return 0;
+			};
+
+			var getY = function (coffee, logo) {
+				return 0;
+			};
+
+			watermark([imgCortada, 'img/tema-uender-e-silmar.png'])
+				.image(watermark.image.atPos(getX, getY, 1))
+				.then(function (img) {
+					$('#imagemFinal').text('').append(img);
+					//var pre = document.querySelector('#imagemFinal');
+					//pre.parentNode.insertBefore(img, pre);
+				});
+		}
+	});
+</script>
+
+<style>
+	.containerImagemFinal img {
+		max-width: 500px;
+	}
+</style>

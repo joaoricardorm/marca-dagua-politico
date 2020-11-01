@@ -1,0 +1,136 @@
+<script src="scripts/jquery-3.5.1.min.js"></script>
+
+<link rel="stylesheet" href="scripts/croppie/croppie.css" />
+<script src="scripts/croppie/croppie.min.js"></script>
+
+<script src="scripts/watermark.js"></script>
+
+<style>
+	#containerRecorte,
+	#upload-demo {
+		display: nones;
+		max-height: 640px;
+		max-width: 640px;
+	}
+</style>
+
+<div id="app">
+	<div id="containerRecorte">
+		<div id="upload-demo"></div>
+
+	</div>
+
+	<div>
+		<input type="file" accept="image/*" id="imagemUpload">
+
+	</div>
+	<div>
+		<button id="salvarImg" style="font-size: 30px;">Salvar</button>
+	</div>
+	<div class="containerImagemFinal">
+		<div id="imagemFinal">Resultado</div>
+	</div>
+
+</div>
+
+
+<script>
+	function demoUpload(exibir) {
+		var $uploadCrop;
+
+		function readFile(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+
+				reader.onload = function (e) {
+					$('.upload-demo').addClass('ready');
+					$uploadCrop.croppie('bind', {
+						url: e.target.result
+					}).then(function () {
+						console.log('jQuery bind complete');
+
+						if (exibir == 'exibe') {
+							$('#containerRecorte, #upload-demo').show();
+						}
+
+					});
+
+				}
+
+				reader.readAsDataURL(input.files[0]);
+			} else {
+				swal("Sorry - you're browser doesn't support the FileReader API");
+			}
+		}
+
+		$uploadCrop = $('#upload-demo').croppie({
+			viewport: {
+				width: 300,
+				height: 300,
+				type: 'circle'
+			},
+			enforceBoundaryboolean: false,
+			enableExif: true,
+			boundary: {
+				width: 550,
+				height: 550
+			},
+			zoom: 1
+		});
+
+		$uploadCrop.croppie('setZoom', 2.5)
+
+
+		$('#imagemUpload').on('change', function () {
+			readFile(this);
+		});
+		$('#salvarImg').on('click', function (ev) {
+			$uploadCrop.croppie('result', {
+				type: 'canvas',
+				size: {
+					width: 1080,
+					height: 1080
+				},
+			}).then(function (resp) {
+
+				console.log(resp);
+
+				aplicaMarca(resp);
+
+				popupResult({
+					src: resp
+				});
+			});
+		});
+	}
+
+
+
+	$('#imagemUpload').on('change', demoUpload('exibe'));
+</script>
+
+
+<script>
+	var elImagemUpload = document.querySelector('#imagemUpload');
+
+	function aplicaMarca(imgCortada) {
+		//		var upload = document.querySelector('input[type=file]').files[0];
+
+		console.log('ok', imgCortada);
+
+		watermark([imgCortada, 'img/tema-uender-e-silmar.png'])
+			.image(watermark.image.lowerRight(1))
+			.then(function (img) {
+				$('#imagemFinal').text('asd').append(img);
+				//var pre = document.querySelector('#imagemFinal');
+				//pre.parentNode.insertBefore(img, pre);
+			});
+
+	}
+</script>
+
+<style>
+	.containerImagemFinal img {
+		max-width: 500px;
+	}
+</style>
