@@ -65,6 +65,15 @@
 			border-radius: 50%;
 		}
 
+		#bg-setas {
+			background: url(img/like.png) center center repeat-x;
+			z-index: -1;
+			width: 100%;
+			height: 100%;
+			position: fixed;
+		}
+
+
 		.container {
 			max-width: 960px;
 			margin: 0 auto;
@@ -98,7 +107,6 @@
 
 		.conteudo {
 			width: 100%;
-			background: url(img/like.png) left center repeat-x;
 			display: flex;
 			flex-direction: column;
 			align-items: center;
@@ -117,8 +125,38 @@
 			width: 100%;
 		}
 
+		.btnGirar {
+			margin: 0 30px;
+			width: 32px;
+			cursor: pointer;
+		}
+
+		.btnGirar:hover {
+			filter: hue-rotate(130deg) brightness(650%);
+		}
+
+		.cr-viewport.cr-vp-circle:before {
+			content: "Mover ✥";
+			z-index: 20000;
+			flex: 1;
+			position: absolute;
+			margin: auto;
+			top: 10%;
+			text-align: center;
+			width: 100%;
+			font-weight: bold;
+			font-size: 2em;
+			color: rgba(255, 255, 255, 0.7);
+			transition: all 100ms ease-in-out;
+		}
+
+		.cr-boundary:hover .cr-viewport.cr-vp-circle:before {
+			color: rgba(255, 255, 255, 0.3);
+		}
+
+
 		@media screen and (max-width: 640px) {
-			.conteudo {
+			#bg-setas {
 				background: transparent;
 			}
 
@@ -134,6 +172,14 @@
 				width: 40px;
 				display: block;
 				margin: 0 auto;
+			}
+
+			#btnRotate-esq {
+				display: none;
+			}
+
+			#btnRotate-dir {
+				margin-top: 15px;
 			}
 
 		}
@@ -187,6 +233,7 @@
 			border: none;
 			transition: all 100ms ease-in-out;
 		}
+
 
 		.btn:hover {
 			background-color: #ff6600;
@@ -284,6 +331,7 @@
 
 <body>
 	<div id="bg-meio"></div>
+	<div id="bg-setas"></div>
 	<div class="container">
 		<div class="header">
 			<picture id="fotoCabecalho">
@@ -315,6 +363,7 @@
 
 
 				<div id="containerRecorte" class="conteudo">
+
 					<div id="upload-demo"></div>
 
 				</div>
@@ -329,7 +378,7 @@
 					<div id="imagemFinal"></div>
 				</div>
 				<div class="footer">
-					<button class="recortarImg btn btn-branco">Recortar</button>
+					<button class="recortarImg btn btn-branco">Ajustar</button>
 
 					<button class="salvarImg block btn btn-grande" style="width: 90%; margin:0 5%;"><img
 							class="icone-upload-imagem" src="img/download-btn.png" align="absmiddle">&nbsp;Salvar
@@ -416,6 +465,8 @@
 
 				}
 
+
+
 				/*$uploadCrop = $('#upload-demo').croppie({
 					viewport: {
 						width: 100,
@@ -432,6 +483,25 @@
 				$('#imagemUpload').on('change', function () {
 					readFile(this);
 				});
+
+				function geraBtnRotate(lado) {
+					return '<img class="btnGirar" id="btnRotate-' + lado +
+						'" align="absmiddle" src="img/btn-rotate-' + lado +
+						'.png">';
+				}
+
+				$('.croppie-container .cr-slider-wrap').prepend(geraBtnRotate('esq'));
+				$('.croppie-container .cr-slider-wrap').append(geraBtnRotate('dir'));
+
+				$('#btnRotate-esq').on('click', function () {
+					$uploadCrop.croppie('rotate', 90);
+				});
+
+				$('#btnRotate-dir').on('click', function () {
+					$uploadCrop.croppie('rotate', -90);
+				});
+
+
 			}
 
 
